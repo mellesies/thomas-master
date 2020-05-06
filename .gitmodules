@@ -1,0 +1,12 @@
+[submodule "thomas-core"]
+	path = thomas-core
+	url = https://github.com/mellesies/thomas-core
+[submodule "thomas-client"]
+	path = thomas-client
+	url = https://github.com/mellesies/thomas-client
+[submodule "thomas-server"]
+	path = thomas-server
+	url = https://github.com/mellesies/thomas-server
+[submodule "thomas-jupyter-widget"]
+	path = thomas-jupyter-widget
+	url = https://github.com/mellesies/thomas-jupyter-widget

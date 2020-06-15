@@ -10,3 +10,6 @@
 [submodule "thomas-jupyter-widget"]
 	path = thomas-jupyter-widget
 	url = https://github.com/mellesies/thomas-jupyter-widget
+[submodule "thomas-ui-dev"]
+	path = thomas-ui-dev
+	url = https://github.com/mellesies/thomas-ui-dev

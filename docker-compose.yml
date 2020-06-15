@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  server:
+    build: thomas-server/
+    image: mellesies/thomas-server:${TAG}
+    volumes:
+      - ./thomas-core:/usr/local/python/thomas-core/
+      - ./thomas-server:/usr/local/python/thomas-server/
+      - thomas-sqlite:/root/.local/share/thomas/data/
+    ports:
+      - "5001:5000"
+    working_dir: /usr/local/python/thomas-server
+    command: >
+        sh -c "
+          pip install -e ../thomas-core;
+          thomas load-fixtures --environment=dev;
+          thomas start --ip 0.0.0.0 --environment=dev
+        "
+    restart: on-failure
+
+  notebook:
+    depends_on:
+      - server
+    build: thomas-client/
+    image: mellesies/thomas-notebook:${TAG}
+    volumes:
+      - ./thomas-jupyter-widget:/usr/local/python/thomas-jupyter-widget/
+      - ./thomas-client:/usr/local/python/thomas-client/
+      - ./thomas-core:/usr/local/python/thomas-core/
+      - ./notebooks:/usr/local/python/notebooks/
+    links:
+      - "server:thomas-server"
+    ports:
+      - "8899:8888"
+    working_dir: /usr/local/python/notebooks
+    environment:
+        SHELL: /bin/bash
+    command: >
+        sh -c "
+          pip install -e ../thomas-core;
+          pip install -e ../thomas-jupyter-widget;
+          jupyter labextension install --minimize=False ../thomas-jupyter-widget/js/;
+          jupyter lab --ip 0.0.0.0 --allow-root --watch --LabApp.token=''
+        "
+
+
+volumes:
+  thomas-sqlite:
+    external: true

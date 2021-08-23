@@ -45,7 +45,7 @@ jupyter-console==6.1.0
 jupyter-contrib-core==0.3.3
 jupyter-core==4.6.3
 jupyter-nbextensions-configurator==0.4.1
-jupyterlab==1.2.6
+jupyterlab==1.2.21
 jupyterlab-server==1.0.0
 kiwisolver
 lark-parser
